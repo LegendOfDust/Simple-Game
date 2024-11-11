@@ -1,0 +1,77 @@
+body {
+    font-size: 1rem;
+    background: rgb(112, 229, 255);
+    text-align: center;
+}
+
+h1 {
+    font-size: 7rem;
+    line-height: 1;
+    margin-bottom: 0;
+}
+
+.controls {
+    margin: 2% 1%;
+}
+
+.game-board {
+    /* set size of game board */
+    width: 65%;
+    min-height: 600px;
+
+    /* centers game board on the screen */
+    margin: 0 auto;
+    background-color: plum;
+    /* set layout of grid within game board using flexbox */
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.grid-space {
+    /* sizes grid spaces using flexbox */
+    flex: 1 0 20%;
+    
+    /* hides moles */
+    overflow: hidden;
+
+    /* keeps holes in the same place even if the page is scrolled */
+    position: relative;
+    border-style: solid;
+    /*creates a black border so grid is visible*/
+    border-width: 3px;
+    border-color: black;
+}
+
+.after {
+    /* create hole shape */
+    display: block;
+    background-color: black;
+    content: "";
+    width: 80%;
+    height: 70px;
+  
+    /* make sure hole stays in front of mole */
+    z-index: 2;
+  
+    /* position hole on the game board */
+    position: absolute;
+    bottom: -30px;
+}
+
+.mole {
+    /* create mole shape */
+    background-color: saddlebrown;
+    width: 80%;
+    height: 80%;
+    
+    /* set mole position */
+    position: absolute;
+    top: 100%;
+
+    /* give mole an animation */
+    transition: all 0.4s;
+}
+
+.hole.up .mole {
+  top: 0;
+}
