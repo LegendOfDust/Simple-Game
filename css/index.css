@@ -17,7 +17,7 @@ h1 {
 .game-board {
     /* set size of game board */
     width: 65%;
-    min-height: 700px;
+    min-height: 650px;
 
     /* centers game board on the screen */
     margin: 0 auto;

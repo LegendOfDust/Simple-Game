@@ -1,7 +1,7 @@
 //Creates an array with all grid squares
-const gameBoardList = document.getElementsByClassName('grid-content');
+const gameBoard = document.getElementsByClassName('grid-content');
 //Creates an empty array that will become a 2D array with the grid squares
-const gameBoard = [];
+/*const gameBoard = [];
 //fills the array
 let i = 0;
 let j = 0;
@@ -14,8 +14,10 @@ while(i<64) {
     gameBoard[j] = plcHldr;
     j++;
 }
+*/
 //logs the gameboard to the console
-console.log(gameBoard);
+console.log(gameBoard.length);
+let snakeList = [];
 
 //initializes game constraints
 let score = 0;
@@ -58,7 +60,7 @@ const startGame = () => {
 }
 
 // bind event listener to start button
-document.getElementById('start').addEventListener('click', startGame)
+document.getElementById('h1').addEventListener('onkeydown', startGame)
 
 
 
