@@ -1,82 +1,65 @@
-//Creates an array with all grid squares
-const gameBoard = document.getElementsByClassName('grid-content');
-//Creates an empty array that will become a 2D array with the grid squares
-/*const gameBoard = [];
-//fills the array
-let i = 0;
-let j = 0;
-while(i<64) {
-    for(let k = 0; k < 8; k++){
-        const plcHldr = [];
-        plcHldr[k] = gameBoardList[i];
-        i++;
-    }
-    gameBoard[j] = plcHldr;
-    j++;
-}
-*/
-//logs the gameboard to the console
-console.log(gameBoard.length);
-let snakeList = [];
 
-//initializes game constraints
+const gridSpaces = document.querySelectorAll('.grid-space');
+const scoreDisplay = document.getElementById('score');
+
+let snake = [0];
+let direction = 1;
+let interval;
+let appleIndex;
 let score = 0;
-let endGame = false;
-let counter = 0;
+let applePlaced = false;
 
-const moveMole = () => {
-    // choose a random hole for the mole to pop out of
-    const index = Math.floor(Math.random() * holes.length);
-    const hole = holes[index];
+const placeApple = () => {
+    document.querySelectorAll('.apple').forEach(apple => apple.remove());
 
-    // move the mole up
-    hole.classList.add('up');
+    appleIndex = Math.floor(Math.random() * gridSpaces.length);
+    const apple = document.createElement('div');
+    apple.classList.add('apple');
+    gridSpaces[appleIndex].appendChild(apple);
+};
 
-    // choose a random amount of time between 2 ms and 1 s
-    const randomTime = Math.round(Math.random() * (1000 - 200) + 200);
-    
-    // after a random amount of time, move the mole down
-    setTimeout(() => {
-        hole.classList.remove('up');
+const moveSnake = () => {
+    const head = snake[0] + direction;
 
-        // if the game is still going, take another turn
-        if (!endGame) takeTurn();
-    }, randomTime);
-}
-
-const takeTurn = () => {
-    // increment counter by one
-    counter++;
-
-    // check for the end of the game
-    counter >= 20 ? endGame = true : endGame = false;
-
-    // move a random mole up
-    moveMole();
-}
-
-const startGame = () => {
-    takeTurn();
-}
-
-// bind event listener to start button
-document.getElementById('h1').addEventListener('onkeydown', startGame)
-
-
-
-const whack = () => {
-    // increment the score by one
-    score++;
-
-    // update the score on the screen
-    document.getElementById('score').textContent = score;
-}
-
-// bind event listeners to each mole
-for (index in moles) {
-    const mole = moles[index];
- 
-    if (typeof(mole) === 'object') {
-        mole.addEventListener('click', whack);
+    const hitLeftWall = head % 8 === 7 && direction === -1;
+    const hitRightWall = head % 8 === 0 && direction === 1;
+    const hitTopWall = head < 0;
+    const hitBottomWall = head >= gridSpaces.length;
+    if (hitLeftWall || hitRightWall || hitTopWall || hitBottomWall || snake.includes(head)) {
+        clearInterval(interval);
+        alert("Game Over! Your score: " + score);
+        return;
     }
-}
+
+    if (head === appleIndex) {
+        score++;
+        scoreDisplay.textContent = score;
+
+        snake.unshift(head);
+
+        placeApple();
+    } else {
+        const tail = snake.pop();
+        gridSpaces[tail].classList.remove('snake');
+        snake.unshift(head);
+    }
+
+    snake.forEach(index => gridSpaces[index].classList.add('snake'));
+};
+
+document.addEventListener('keydown', (event) => {
+    const arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+
+    if (arrowKeys.includes(event.key) && !applePlaced) {
+        placeApple(); 
+        applePlaced = true;
+        interval = setInterval(moveSnake, 200); 
+    }
+
+    switch(event.key) {
+        case 'ArrowUp': direction = -8; break; 
+        case 'ArrowDown': direction = 8; break; 
+        case 'ArrowLeft': direction = -1; break; 
+        case 'ArrowRight': direction = 1; break; 
+    }
+});

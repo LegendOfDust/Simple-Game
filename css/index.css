@@ -60,19 +60,6 @@ h1 {
     bottom: -30px;
 }
 
-.mole {
-    /* create mole shape */
-    background-color: saddlebrown;
-    width: 80%;
-    height: 80%;
-    
-    /* set mole position */
-    position: absolute;
-    top: 100%;
-
-    /* give mole an animation */
-    transition: all 0.4s;
-}
 
 .hole.up .mole {
   top: 0;
@@ -84,8 +71,13 @@ h1 {
 
 .apple {
     background-color: red;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
 }
+
 
 .empty {
     background-color: plum;
 }
+
