@@ -1,6 +1,23 @@
-const holes = document.getElementsByClassName('hole');
-const moles = document.getElementsByClassName('mole');
+//Creates an array with all grid squares
+const gameBoardList = document.getElementsByClassName('grid-content');
+//Creates an empty array that will become a 2D array with the grid squares
+const gameBoard = [];
+//fills the array
+let i = 0;
+let j = 0;
+while(i<64) {
+    for(let k = 0; k < 8; k++){
+        const plcHldr = [];
+        plcHldr[k] = gameBoardList[i];
+        i++;
+    }
+    gameBoard[j] = plcHldr;
+    j++;
+}
+//logs the gameboard to the console
+console.log(gameBoard);
 
+//initializes game constraints
 let score = 0;
 let endGame = false;
 let counter = 0;
